@@ -1,19 +1,16 @@
-require('dotenv').config(); //initialize dotenv
-const Discord = require('discord.js'); //import discord.js
-
-const client = new Discord.Client({
-    intents: [Discord.Intents.FLAGS.GUILDS],
-}); //create new client
+const { Client, Intents } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
-    if (msg.content === 'ping') {
-        msg.reply('Pong!');
-    }
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isCommand()) return;
+
+  if (interaction.commandName === 'ping') {
+    await interaction.reply('Pong!');
+  }
 });
 
-//make sure this line is the last line
-client.login(process.env.CLIENT_TOKEN); //login bot using token
+client.login('OTU0MjcyOTYxOTkxNDM0Mjcw.YjQt8w.JUIBtAI4nlSwPJtnvlW3oh-9acU');
